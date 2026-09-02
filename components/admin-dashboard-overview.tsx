@@ -129,7 +129,7 @@ export function AdminDashboardOverview() {
     <div className="space-y-8">
       {/* Welcome Section */}
       <div>
-        <h1 className="text-3xl font-serif font-bold mb-2">Welcome back, Dr. Noor!</h1>
+        <h1 className="text-3xl font-serif font-bold mb-2">Welcome back, Rubia!</h1>
         <p className="text-muted-foreground">Here's what's happening with your practice today.</p>
       </div>
 

@@ -1,89 +1,82 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { ArrowRight, Star, Users, Award, Heart } from "lucide-react"
+import { ArrowRight, Check } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
+import { person, internship } from "@/lib/site-data"
 
 export function HeroSection() {
-  const stats = [
-    { icon: Users, value: "500+", label: "Happy Clients" },
-    { icon: Award, value: "8+", label: "Years Experience" },
-    { icon: Heart, value: "95%", label: "Success Rate" },
-    { icon: Star, value: "4.9", label: "Client Rating" },
+  const focus = [
+    "Cardiac patient nutrition",
+    "Dietary assessment",
+    "Clinical nutrition counselling",
+    "Personalised diet plans",
   ]
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-secondary/20 to-accent/10">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-secondary/20">
       {/* Background Elements */}
-      <div className="absolute inset-0 bg-[url('/abstract-organic-nutrition-pattern.jpg')] opacity-5"></div>
+      <div className="absolute inset-0 bg-[url('/abstract-organic-nutrition-pattern.jpg')] opacity-[0.035]"></div>
 
       <div className="container mx-auto px-4 py-20 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div className="space-y-8 animate-fade-in-up">
             <div className="space-y-4">
-              <div className="inline-flex items-center px-4 py-2 bg-primary/10 rounded-full text-primary font-medium text-sm">
-                <Heart className="w-4 h-4 mr-2" />
-                Certified Nutritionist & Wellness Expert
-              </div>
+              <p className="text-sm font-medium uppercase tracking-[0.18em] text-primary">{person.title}</p>
 
               <h1 className="text-5xl lg:text-7xl font-serif font-bold text-balance leading-tight">
-                Transform Your
-                <span className="text-primary block">Health Journey</span>
+                Eat Well,
+                <span className="text-primary block">Live Better</span>
               </h1>
 
               <p className="text-xl text-muted-foreground text-pretty leading-relaxed max-w-xl">
-                Discover personalized nutrition plans that fit your lifestyle. Dr. Rubia Noor combines evidence-based
-                science with compassionate care to help you achieve lasting wellness.
+                {person.name} is a Human Nutrition &amp; Dietetics professional trained at the{" "}
+                {internship.organisation}. She builds practical, evidence-based diet plans around your health condition,
+                your budget and the food you actually eat.
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="text-lg px-8 py-6 group">
-                Start Your Journey
-                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              <Button size="lg" className="text-lg px-8 py-6 group" asChild>
+                <Link href="/contact">
+                  Book a Consultation
+                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                </Link>
               </Button>
-              <Button variant="outline" size="lg" className="text-lg px-8 py-6 bg-transparent">
-                Learn More
+              <Button variant="outline" size="lg" className="text-lg px-8 py-6 bg-transparent" asChild>
+                <Link href="/about">About {person.name.split(" ")[0]}</Link>
               </Button>
             </div>
 
-            {/* Stats */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 pt-8">
-              {stats.map((stat, index) => (
-                <Card key={index} className="p-4 text-center hover:shadow-lg transition-shadow">
-                  <stat.icon className="w-8 h-8 mx-auto mb-2 text-primary" />
-                  <div className="text-2xl font-bold text-foreground">{stat.value}</div>
-                  <div className="text-sm text-muted-foreground">{stat.label}</div>
-                </Card>
+            {/* Focus areas */}
+            <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-3 pt-6 border-t border-border/60">
+              {focus.map((item) => (
+                <li key={item} className="flex items-center text-muted-foreground">
+                  <Check className="w-4 h-4 mr-3 text-primary flex-shrink-0" />
+                  {item}
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
 
           {/* Right Content - Image */}
-          <div className="relative animate-float">
-            <div className="relative w-full h-[600px] rounded-3xl overflow-hidden shadow-2xl">
+          <div className="relative mx-auto w-full max-w-[400px] lg:max-w-[460px]">
+            <div className="relative aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl bg-muted">
               <Image
-                src="/professional-female-dietitian-in-modern-clinic.jpg"
-                alt="Dr. Rubia Noor - Professional Dietitian"
+                src={person.portrait}
+                alt={`${person.name} — ${person.title}`}
                 fill
-                className="object-cover"
+                sizes="(max-width: 1024px) 400px, 460px"
+                className="object-cover object-[50%_62%]"
                 priority
               />
+            </div>
 
-              {/* Floating Elements */}
-              <div className="absolute top-8 right-8 bg-white/90 dark:bg-card/90 backdrop-blur-sm rounded-2xl p-4 shadow-lg">
-                <div className="flex items-center space-x-2">
-                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                  <span className="text-sm font-medium">Available for consultation</span>
-                </div>
-              </div>
-
-              <div className="absolute bottom-8 left-8 bg-primary/90 backdrop-blur-sm rounded-2xl p-4 text-primary-foreground shadow-lg">
-                <div className="text-2xl font-bold">500+</div>
-                <div className="text-sm opacity-90">Success Stories</div>
-              </div>
+            <div className="mt-5 rounded-2xl border bg-card px-5 py-4 shadow-sm">
+              <div className="font-semibold leading-tight">Certified in Human Nutrition &amp; Dietetics</div>
+              <div className="text-sm text-muted-foreground mt-1">{internship.organisation}</div>
             </div>
           </div>
         </div>

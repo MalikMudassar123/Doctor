@@ -3,40 +3,38 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
-import { MapPin, Phone, Mail, Clock, Facebook, Instagram, Twitter, Linkedin, Heart } from "lucide-react"
+import { MapPin, Phone, Mail, Clock, Facebook, Instagram, Linkedin } from "lucide-react"
+import { contact, person, socialLinks } from "@/lib/site-data"
 
 export function Footer() {
   const quickLinks = [
     { href: "/", label: "Home" },
-    { href: "/about", label: "About Dr. Noor" },
+    { href: "/about", label: "About" },
     { href: "/services", label: "Services" },
     { href: "/blog", label: "Blog" },
     { href: "/contact", label: "Contact" },
   ]
 
   const services = [
+    { href: "/services#cardiac-nutrition", label: "Cardiac Patient Nutrition" },
+    { href: "/services#dietary-assessment", label: "Dietary Assessment" },
+    { href: "/services#clinical-counselling", label: "Clinical Nutrition Counselling" },
     { href: "/services#weight-management", label: "Weight Management" },
-    { href: "/services#medical-nutrition", label: "Medical Nutrition" },
-    { href: "/services#sports-nutrition", label: "Sports Nutrition" },
-    { href: "/services#family-nutrition", label: "Family Nutrition" },
-    { href: "/services#plant-based", label: "Plant-Based Nutrition" },
+    { href: "/services#diet-plan", label: "Diet Plan Design" },
   ]
 
   const resources = [
     { href: "/blog", label: "Nutrition Blog" },
-    { href: "/resources/meal-plans", label: "Meal Plans" },
-    { href: "/resources/recipes", label: "Healthy Recipes" },
-    { href: "/resources/guides", label: "Nutrition Guides" },
-    { href: "/faq", label: "FAQ" },
+    { href: "/about", label: "Credentials" },
+    { href: "/services", label: "Consultations" },
+    { href: "/contact", label: "Contact & FAQ" },
   ]
 
-  const socialLinks = [
-    { icon: Facebook, href: "#", label: "Facebook" },
-    { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Twitter, href: "#", label: "Twitter" },
-    { icon: Linkedin, href: "#", label: "LinkedIn" },
-  ]
+  const socials = [
+    { icon: Facebook, href: socialLinks.facebook, label: "Facebook" },
+    { icon: Instagram, href: socialLinks.instagram, label: "Instagram" },
+    { icon: Linkedin, href: socialLinks.linkedin, label: "LinkedIn" },
+  ].filter((s) => s.href)
 
   return (
     <footer className="bg-primary text-primary-foreground">
@@ -46,39 +44,48 @@ export function Footer() {
           <div className="lg:col-span-1">
             <div className="flex items-center space-x-3 mb-6">
               <div className="w-12 h-12 bg-primary-foreground/10 rounded-full flex items-center justify-center">
-                <span className="text-primary-foreground font-serif font-bold text-xl">R</span>
+                <span className="text-primary-foreground font-serif font-bold text-xl">RN</span>
               </div>
               <div>
-                <h3 className="font-serif font-bold text-xl">Dr. Rubia Noor</h3>
-                <p className="text-primary-foreground/80 text-sm">Certified Nutritionist</p>
+                <h3 className="font-serif font-bold text-xl">{person.name}</h3>
+                <p className="text-primary-foreground/80 text-sm">{person.shortTitle}</p>
               </div>
             </div>
             <p className="text-primary-foreground/80 mb-6 leading-relaxed">
-              Transforming lives through personalized nutrition and evidence-based wellness strategies.
+              Clinical nutrition and personalised diet planning from {person.city} — trained in Human Nutrition and
+              Dietetics at DHQ Hospital Toba Tek Singh.
             </p>
             <div className="space-y-3 text-sm">
-              <div className="flex items-center">
-                <Phone className="w-4 h-4 mr-3 flex-shrink-0" />
-                <span>+1 (555) 123-4567</span>
-              </div>
-              <div className="flex items-center">
-                <Mail className="w-4 h-4 mr-3 flex-shrink-0" />
-                <span>dr.rubia@nutrition.com</span>
-              </div>
+              {contact.phone && (
+                <div className="flex items-center">
+                  <Phone className="w-4 h-4 mr-3 flex-shrink-0" />
+                  <span>{contact.phone}</span>
+                </div>
+              )}
+              {contact.email && (
+                <div className="flex items-center">
+                  <Mail className="w-4 h-4 mr-3 flex-shrink-0" />
+                  <span>{contact.email}</span>
+                </div>
+              )}
               <div className="flex items-start">
                 <MapPin className="w-4 h-4 mr-3 flex-shrink-0 mt-0.5" />
                 <span>
-                  Downtown Wellness Center
-                  <br />
-                  123 Health Street, Suite 200
+                  {contact.addressLines.map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
                 </span>
               </div>
               <div className="flex items-start">
                 <Clock className="w-4 h-4 mr-3 flex-shrink-0 mt-0.5" />
                 <span>
-                  Mon-Fri: 9AM-6PM
-                  <br />
-                  Sat: 10AM-2PM
+                  {contact.hoursLines.map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
                 </span>
               </div>
             </div>
@@ -155,7 +162,7 @@ export function Footer() {
           <div className="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
             <div className="flex items-center space-x-6">
               <div className="flex items-center space-x-4">
-                {socialLinks.map((social) => (
+                {socials.map((social) => (
                   <Button
                     key={social.label}
                     variant="ghost"
@@ -171,13 +178,8 @@ export function Footer() {
               </div>
             </div>
 
-            <div className="flex items-center space-x-4">
-              <Badge variant="secondary" className="bg-primary-foreground/10 text-primary-foreground">
-                Licensed Nutritionist
-              </Badge>
-              <Badge variant="secondary" className="bg-primary-foreground/10 text-primary-foreground">
-                Board Certified
-              </Badge>
+            <div className="text-sm text-primary-foreground/70">
+              Human Nutrition &amp; Dietetics · Reg. No. {person.registrationNo}
             </div>
           </div>
         </div>
@@ -185,7 +187,7 @@ export function Footer() {
         {/* Copyright */}
         <div className="border-t border-primary-foreground/20 mt-8 pt-8 text-center">
           <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-            <p className="text-primary-foreground/80 text-sm">© 2024 Dr. Rubia Noor Nutrition. All rights reserved.</p>
+            <p className="text-primary-foreground/80 text-sm">{`© ${new Date().getFullYear()} ${person.name} Nutrition. All rights reserved.`}</p>
             <div className="flex items-center space-x-6 text-sm">
               <Link href="/privacy" className="text-primary-foreground/80 hover:text-primary-foreground">
                 Privacy Policy
@@ -197,11 +199,6 @@ export function Footer() {
                 Accessibility
               </Link>
             </div>
-          </div>
-          <div className="flex items-center justify-center mt-4 text-primary-foreground/60 text-sm">
-            <span>Made with</span>
-            <Heart className="w-4 h-4 mx-1 fill-current" />
-            <span>for better health</span>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -17,21 +17,35 @@ export function BookingSystem() {
   const [step, setStep] = useState(1)
 
   const services = [
-    { id: "weight-management", name: "Weight Management", duration: "60 min", price: "$150" },
-    { id: "medical-nutrition", name: "Medical Nutrition Therapy", duration: "75 min", price: "$180" },
-    { id: "sports-nutrition", name: "Sports Nutrition", duration: "60 min", price: "$160" },
-    { id: "pediatric-nutrition", name: "Pediatric Nutrition", duration: "45 min", price: "$140" },
-    { id: "family-nutrition", name: "Family Nutrition", duration: "90 min", price: "$200" },
-    { id: "plant-based", name: "Plant-Based Transition", duration: "60 min", price: "$150" },
+    { id: "cardiac-nutrition", name: "Cardiac Patient Nutrition", duration: "45-60 min" },
+    { id: "dietary-assessment", name: "Dietary Assessment", duration: "45 min" },
+    { id: "clinical-counselling", name: "Clinical Nutrition Counselling", duration: "45-60 min" },
+    { id: "weight-management", name: "Weight Management", duration: "45 min" },
+    { id: "diet-plan", name: "Diet Plan Design", duration: "30 min" },
+    { id: "family-nutrition", name: "Family & Maternal Nutrition", duration: "60 min" },
   ]
 
-  const availableDates = [
-    { date: "2024-01-15", day: "Monday", slots: ["9:00 AM", "11:00 AM", "2:00 PM", "4:00 PM"] },
-    { date: "2024-01-16", day: "Tuesday", slots: ["10:00 AM", "1:00 PM", "3:00 PM"] },
-    { date: "2024-01-17", day: "Wednesday", slots: ["9:00 AM", "11:00 AM", "2:00 PM", "4:00 PM", "5:00 PM"] },
-    { date: "2024-01-18", day: "Thursday", slots: ["10:00 AM", "12:00 PM", "3:00 PM"] },
-    { date: "2024-01-19", day: "Friday", slots: ["9:00 AM", "11:00 AM", "1:00 PM", "3:00 PM"] },
-  ]
+  // Next 5 working days (Mon-Sat), generated from today so slots are never in the past.
+  const availableDates = useMemo(() => {
+    const slotsByDay: Record<string, string[]> = {
+      Monday: ["10:00 AM", "12:00 PM", "3:00 PM", "5:00 PM"],
+      Tuesday: ["10:00 AM", "1:00 PM", "4:00 PM"],
+      Wednesday: ["10:00 AM", "12:00 PM", "3:00 PM", "5:00 PM"],
+      Thursday: ["11:00 AM", "1:00 PM", "4:00 PM"],
+      Friday: ["10:00 AM", "12:00 PM", "4:00 PM"],
+      Saturday: ["11:00 AM", "1:00 PM", "3:00 PM"],
+    }
+    const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    const days: { date: string; day: string; slots: string[] }[] = []
+    const cursor = new Date()
+    while (days.length < 5) {
+      cursor.setDate(cursor.getDate() + 1)
+      const day = dayNames[cursor.getDay()]
+      if (day === "Sunday") continue
+      days.push({ date: cursor.toISOString().slice(0, 10), day, slots: slotsByDay[day] })
+    }
+    return days
+  }, [])
 
   const handleServiceSelect = (serviceId: string) => {
     setSelectedService(serviceId)
@@ -53,7 +67,7 @@ export function BookingSystem() {
   const selectedDateData = availableDates.find((d) => d.date === selectedDate)
 
   return (
-    <section className="py-20 bg-gradient-to-br from-primary/5 to-accent/5">
+    <section className="py-20 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <Badge variant="outline" className="mb-4 text-primary border-primary">
@@ -105,7 +119,6 @@ export function BookingSystem() {
                     >
                       <div className="flex justify-between items-start mb-2">
                         <h4 className="font-semibold">{service.name}</h4>
-                        <Badge variant="secondary">{service.price}</Badge>
                       </div>
                       <div className="flex items-center text-sm text-muted-foreground">
                         <Clock className="w-4 h-4 mr-1" />
@@ -201,7 +214,6 @@ export function BookingSystem() {
                     </div>
                     <div>Time: {selectedTime}</div>
                     <div>Duration: {selectedServiceData?.duration}</div>
-                    <div className="font-semibold text-primary">Price: {selectedServiceData?.price}</div>
                   </div>
                 </Card>
 
@@ -224,7 +236,7 @@ export function BookingSystem() {
                     </div>
                     <div>
                       <Label htmlFor="phone">Phone Number *</Label>
-                      <Input id="phone" type="tel" placeholder="+1 (555) 123-4567" required />
+                      <Input id="phone" type="tel" placeholder="+92 300 1234567" required />
                     </div>
                   </div>
 

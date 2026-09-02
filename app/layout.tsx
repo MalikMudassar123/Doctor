@@ -17,10 +17,9 @@ const playfair = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  title: "Dr. Rubia Noor - Expert Dietitian & Nutritionist", // Updated title
+  title: "Rubia Noor — Clinical Nutritionist & Dietitian, Toba Tek Singh",
   description:
-    "Transform your health with personalized nutrition plans from Dr. Rubia Noor, a certified dietitian specializing in sustainable wellness solutions.", // Updated description
-  generator: "v0.app",
+    "Rubia Noor is a Human Nutrition & Dietetics professional trained at the Cardiac & Liver Center, DHQ Hospital Toba Tek Singh. Personalised diet plans, cardiac and clinical nutrition counselling, in person and online.",
 }
 
 export default function RootLayout({

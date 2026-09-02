@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Menu, X, Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
+import { person } from "@/lib/site-data"
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
@@ -37,9 +38,9 @@ export function Navigation() {
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="flex items-center space-x-2">
             <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
-              <span className="text-primary-foreground font-serif font-bold text-lg">R</span>
+              <span className="text-primary-foreground font-serif font-bold text-lg">RN</span>
             </div>
-            <span className="font-serif font-bold text-xl text-foreground">Dr. Rubia Noor</span>
+            <span className="font-serif font-bold text-xl text-foreground">{person.name}</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -62,7 +63,9 @@ export function Navigation() {
               <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
               <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
             </Button>
-            <Button className="ml-4">Book Consultation</Button>
+            <Button className="ml-4" asChild>
+              <Link href="/contact">Book Consultation</Link>
+            </Button>
           </div>
 
           {/* Mobile menu button */}
@@ -92,7 +95,9 @@ export function Navigation() {
                 </Link>
               ))}
               <div className="px-3 py-2">
-                <Button className="w-full">Book Consultation</Button>
+                <Button className="w-full" asChild>
+                  <Link href="/contact">Book Consultation</Link>
+                </Button>
               </div>
             </div>
           </div>

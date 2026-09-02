@@ -1,10 +1,11 @@
+import Image from "next/image"
 import { Navigation } from "@/components/navigation"
 import { ServicesSection } from "@/components/services-section"
 import { BookingSystem } from "@/components/booking-system"
-import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
-import { CheckCircle, Clock, Users, Award } from "lucide-react"
+import { CheckCircle } from "lucide-react"
 import { Footer } from "@/components/footer"
+import { person } from "@/lib/site-data"
 
 export default function ServicesPage() {
   const processSteps = [
@@ -44,49 +45,24 @@ export default function ServicesPage() {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="pt-24 pb-16 bg-gradient-to-br from-background via-secondary/20 to-accent/10">
+      <section className="pt-32 pb-16 bg-secondary/20 border-b">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <Badge variant="outline" className="mb-4 text-primary border-primary">
-              Our Services
-            </Badge>
+            <p className="text-sm font-medium uppercase tracking-[0.18em] text-primary mb-4">Our Services</p>
             <h1 className="text-4xl lg:text-6xl font-serif font-bold mb-6 text-balance">
               Comprehensive Nutrition
               <span className="text-primary block">Services</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty leading-relaxed">
-              From weight management to specialized medical nutrition therapy, discover our full range of personalized
-              nutrition services designed to help you achieve optimal health.
+              Cardiac and clinical nutrition, dietary assessment and personalised diet planning — available in person
+              in Toba Tek Singh and online across Pakistan.
             </p>
           </div>
 
-          {/* Quick Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-            <Card className="p-4 text-center">
-              <Users className="w-8 h-8 mx-auto mb-2 text-primary" />
-              <div className="text-2xl font-bold">500+</div>
-              <div className="text-sm text-muted-foreground">Clients Served</div>
-            </Card>
-            <Card className="p-4 text-center">
-              <Award className="w-8 h-8 mx-auto mb-2 text-primary" />
-              <div className="text-2xl font-bold">95%</div>
-              <div className="text-sm text-muted-foreground">Success Rate</div>
-            </Card>
-            <Card className="p-4 text-center">
-              <Clock className="w-8 h-8 mx-auto mb-2 text-primary" />
-              <div className="text-2xl font-bold">8+</div>
-              <div className="text-sm text-muted-foreground">Years Experience</div>
-            </Card>
-            <Card className="p-4 text-center">
-              <CheckCircle className="w-8 h-8 mx-auto mb-2 text-primary" />
-              <div className="text-2xl font-bold">6</div>
-              <div className="text-sm text-muted-foreground">Specializations</div>
-            </Card>
-          </div>
         </div>
       </section>
 
-      <ServicesSection />
+      <ServicesSection showHeader={false} />
 
       {/* Process Section */}
       <section className="py-20 bg-muted/30">
@@ -94,7 +70,7 @@ export default function ServicesPage() {
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-serif font-bold mb-6">How It Works</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Our proven 4-step process ensures you get the personalized care and support you need for lasting results
+              How a consultation actually runs, from first assessment to follow-up
             </p>
           </div>
 
@@ -118,12 +94,12 @@ export default function ServicesPage() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
               <h2 className="text-3xl lg:text-4xl font-serif font-bold mb-6">
-                Why Choose Our
-                <span className="text-primary block">Nutrition Services?</span>
+                Why Work With
+                <span className="text-primary block">Rubia Noor?</span>
               </h2>
               <p className="text-muted-foreground mb-8 leading-relaxed">
-                Our comprehensive approach combines scientific expertise with practical, real-world solutions that fit
-                seamlessly into your lifestyle.
+                Clinical training at a working hospital, plans built from everyday Pakistani food, and a clear
+                assessment before anything is prescribed.
               </p>
 
               <div className="grid grid-cols-1 gap-4">
@@ -136,12 +112,14 @@ export default function ServicesPage() {
               </div>
             </div>
 
-            <div className="relative">
-              <div className="relative w-full h-[400px] rounded-3xl overflow-hidden shadow-2xl">
-                <img
-                  src="/nutritionist-consultation-session-with-client.jpg"
-                  alt="Nutrition consultation session"
-                  className="w-full h-full object-cover"
+            <div className="mx-auto w-full max-w-[380px]">
+              <div className="relative aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl bg-muted">
+                <Image
+                  src={person.portrait}
+                  alt={`${person.name} — ${person.title}`}
+                  fill
+                  sizes="380px"
+                  className="object-cover object-[50%_62%]"
                 />
               </div>
             </div>

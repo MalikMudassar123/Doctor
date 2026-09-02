@@ -1,7 +1,6 @@
 import { Navigation } from "@/components/navigation"
 import { ContactSection } from "@/components/contact-section"
 import { Footer } from "@/components/footer"
-import { Badge } from "@/components/ui/badge"
 
 export default function ContactPage() {
   return (
@@ -9,12 +8,10 @@ export default function ContactPage() {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="pt-24 pb-16 bg-gradient-to-br from-background via-secondary/20 to-accent/10">
+      <section className="pt-32 pb-16 bg-secondary/20 border-b">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <Badge variant="outline" className="mb-4 text-primary border-primary">
-              Contact Us
-            </Badge>
+            <p className="text-sm font-medium uppercase tracking-[0.18em] text-primary mb-4">Contact Us</p>
             <h1 className="text-4xl lg:text-6xl font-serif font-bold mb-6 text-balance">
               Let's Start Your
               <span className="text-primary block">Wellness Journey</span>
@@ -27,7 +24,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <ContactSection />
+      <ContactSection showHeader={false} />
       <Footer />
     </main>
   )

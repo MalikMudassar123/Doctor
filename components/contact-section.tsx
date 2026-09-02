@@ -9,10 +9,11 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Badge } from "@/components/ui/badge"
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle } from "lucide-react"
+import Link from "next/link"
+import { contact, person } from "@/lib/site-data"
 
-export function ContactSection() {
+export function ContactSection({ showHeader = true }: { showHeader?: boolean }) {
   const [isSubmitted, setIsSubmitted] = useState(false)
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -23,70 +24,84 @@ export function ContactSection() {
   }
 
   const contactInfo = [
-    {
+    contact.phone && {
       icon: Phone,
-      title: "Phone",
-      details: ["+1 (555) 123-4567", "Mon-Fri 9AM-6PM"],
+      title: "Phone / WhatsApp",
+      details: [contact.phone, "Mon–Sat, 10:00 AM – 6:00 PM"],
       action: "Call Now",
+      href: `tel:${contact.phone.replace(/\s/g, "")}`,
     },
-    {
+    contact.email && {
       icon: Mail,
       title: "Email",
-      details: ["dr.rubia@nutrition.com", "Response within 24 hours"],
+      details: [contact.email, "Response within 24 hours"],
       action: "Send Email",
+      href: `mailto:${contact.email}`,
     },
     {
       icon: MapPin,
       title: "Location",
-      details: ["Downtown Wellness Center", "123 Health Street, Suite 200"],
+      details: contact.addressLines,
       action: "Get Directions",
+      href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+        `${person.city}, ${person.region}`,
+      )}`,
     },
     {
       icon: Clock,
-      title: "Office Hours",
-      details: ["Monday - Friday: 9:00 AM - 6:00 PM", "Saturday: 10:00 AM - 2:00 PM"],
+      title: "Consultation Hours",
+      details: contact.hoursLines,
       action: "Book Online",
+      href: "/services",
     },
-  ]
+  ].filter(Boolean) as {
+    icon: typeof Phone
+    title: string
+    details: string[]
+    action: string
+    href: string
+  }[]
 
   const faqs = [
     {
       question: "How long is an initial consultation?",
       answer:
-        "Initial consultations typically last 75 minutes to allow for a comprehensive health assessment and personalized nutrition plan development.",
+        "An initial consultation runs 45 to 60 minutes. That covers a full dietary assessment, your measurements and any lab reports you bring, before a plan is written.",
     },
     {
-      question: "Do you accept insurance?",
-      answer: "We accept most major insurance plans. Please contact us to verify your specific coverage and benefits.",
-    },
-    {
-      question: "Can I do virtual consultations?",
+      question: "Do you offer online consultations?",
       answer:
-        "Yes! We offer secure video consultations for your convenience, especially for follow-up appointments and ongoing support.",
+        "Yes. Consultations are available in person in Toba Tek Singh and online over WhatsApp or video call for clients elsewhere in Pakistan and abroad.",
     },
     {
       question: "What should I bring to my first appointment?",
-      answer: "Please bring any recent lab results, a list of current medications, and a 3-day food diary if possible.",
+      answer:
+        "Any recent lab reports (blood sugar, lipid profile, Hb, LFT/RFT), a list of medicines you take, and a rough note of what you ate over the last three days.",
+    },
+    {
+      question: "Will the diet plan use normal Pakistani food?",
+      answer:
+        "Yes. Plans are built around roti, daal, sabzi, salan, fruit and everyday grocery items — no imported ingredients or expensive supplements required.",
     },
   ]
 
   return (
-    <section className="py-20 bg-gradient-to-b from-background to-secondary/20">
+    <section className="py-20 bg-muted/30">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-16">
-          <Badge variant="outline" className="mb-4 text-primary border-primary">
-            Get In Touch
-          </Badge>
-          <h2 className="text-4xl lg:text-5xl font-serif font-bold mb-6 text-balance">
-            Ready to Start Your
-            <span className="text-primary block">Health Journey?</span>
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty leading-relaxed">
-            Contact us today to schedule your personalized nutrition consultation and take the first step towards
-            optimal health.
-          </p>
-        </div>
+        {showHeader && (
+          <div className="text-center mb-16">
+            <p className="text-sm font-medium uppercase tracking-[0.18em] text-primary mb-4">Get In Touch</p>
+            <h2 className="text-4xl lg:text-5xl font-serif font-bold mb-6 text-balance">
+              Ready to Start Your
+              <span className="text-primary block">Health Journey?</span>
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty leading-relaxed">
+              Contact us today to schedule your personalized nutrition consultation and take the first step towards
+              optimal health.
+            </p>
+          </div>
+        )}
 
         <div className="grid lg:grid-cols-2 gap-16 mb-20">
           {/* Contact Form */}
@@ -120,7 +135,7 @@ export function ContactSection() {
                   </div>
                   <div>
                     <Label htmlFor="phone">Phone Number</Label>
-                    <Input id="phone" type="tel" placeholder="+1 (555) 123-4567" />
+                    <Input id="phone" type="tel" placeholder="+92 300 1234567" />
                   </div>
                 </div>
 
@@ -133,7 +148,7 @@ export function ContactSection() {
                     <SelectContent>
                       <SelectItem value="consultation">Schedule a Consultation</SelectItem>
                       <SelectItem value="services">Questions about Services</SelectItem>
-                      <SelectItem value="insurance">Insurance & Billing</SelectItem>
+                      <SelectItem value="fees">Fees & Booking</SelectItem>
                       <SelectItem value="follow-up">Follow-up Question</SelectItem>
                       <SelectItem value="other">Other</SelectItem>
                     </SelectContent>
@@ -159,7 +174,7 @@ export function ContactSection() {
                     <SelectContent>
                       <SelectItem value="email">Email</SelectItem>
                       <SelectItem value="phone">Phone Call</SelectItem>
-                      <SelectItem value="text">Text Message</SelectItem>
+                      <SelectItem value="whatsapp">WhatsApp</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -190,8 +205,8 @@ export function ContactSection() {
                             {detail}
                           </p>
                         ))}
-                        <Button variant="outline" size="sm" className="mt-3 bg-transparent">
-                          {info.action}
+                        <Button variant="outline" size="sm" className="mt-3 bg-transparent" asChild>
+                          <Link href={info.href}>{info.action}</Link>
                         </Button>
                       </div>
                     </div>
@@ -203,13 +218,15 @@ export function ContactSection() {
             {/* Map Placeholder */}
             <Card className="p-6">
               <h4 className="font-semibold text-lg mb-4">Find Us</h4>
-              <div className="w-full h-48 bg-muted rounded-lg flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin className="w-12 h-12 text-muted-foreground mx-auto mb-2" />
-                  <p className="text-muted-foreground">Interactive Map</p>
-                  <p className="text-sm text-muted-foreground">Downtown Wellness Center</p>
-                </div>
-              </div>
+              <iframe
+                title={`Map of ${person.city}, ${person.region}`}
+                src={`https://www.google.com/maps?q=${encodeURIComponent(
+                  `${person.city}, ${person.region}`,
+                )}&output=embed`}
+                className="w-full h-64 rounded-lg border-0"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </Card>
           </div>
         </div>

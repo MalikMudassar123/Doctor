@@ -60,7 +60,7 @@ export function AdminSidebar() {
                 <span className="text-primary-foreground font-serif font-bold text-lg">R</span>
               </div>
               <div>
-                <h2 className="font-serif font-bold text-lg">Dr. Rubia Noor</h2>
+                <h2 className="font-serif font-bold text-lg">Rubia Noor</h2>
                 <p className="text-sm text-muted-foreground">Admin Panel</p>
               </div>
             </div>

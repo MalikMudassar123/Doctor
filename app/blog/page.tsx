@@ -1,30 +1,27 @@
 import { Navigation } from "@/components/navigation"
 import { BlogSection } from "@/components/blog-section"
-import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Search, Rss, Mail, BookOpen, TrendingUp, Users } from "lucide-react"
+import { Search } from "lucide-react"
 import { Footer } from "@/components/footer"
 
 export default function BlogPage() {
-  const popularTags = [
-    "Weight Loss",
+  const popularTopics = [
+    "Cardiac nutrition",
     "Diabetes",
-    "Plant-Based",
-    "Sports Nutrition",
-    "Meal Prep",
-    "Heart Health",
-    "Gut Health",
-    "Supplements",
+    "Heart health",
+    "Dietary assessment",
+    "Diet planning",
+    "Ramadan nutrition",
   ]
 
   const recentPosts = [
-    "The Science Behind Sustainable Weight Loss",
-    "Plant-Based Protein Sources Guide",
+    "Heart-Healthy Eating: What Cardiac Patients Should Change First",
+    "Affordable Protein on a Pakistani Grocery Budget",
+    "Dietary Assessment: What Happens in Your First Consultation",
     "Managing Diabetes Through Nutrition",
-    "Sports Nutrition for Endurance Athletes",
-    "Gut Health and Overall Wellness",
+    "Ramadan Nutrition: Sehri and Iftar Without the Energy Crash",
   ]
 
   return (
@@ -32,12 +29,10 @@ export default function BlogPage() {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="pt-24 pb-16 bg-gradient-to-br from-background via-secondary/20 to-accent/10">
+      <section className="pt-32 pb-16 bg-secondary/20 border-b">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <Badge variant="outline" className="mb-4 text-primary border-primary">
-              Nutrition Blog
-            </Badge>
+            <p className="text-sm font-medium uppercase tracking-[0.18em] text-primary mb-4">Nutrition Blog</p>
             <h1 className="text-4xl lg:text-6xl font-serif font-bold mb-6 text-balance">
               Evidence-Based
               <span className="text-primary block">Nutrition Insights</span>
@@ -49,7 +44,7 @@ export default function BlogPage() {
           </div>
 
           {/* Search Bar */}
-          <div className="max-w-2xl mx-auto mb-8">
+          <div className="max-w-2xl mx-auto">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
               <Input
@@ -60,65 +55,28 @@ export default function BlogPage() {
             </div>
           </div>
 
-          {/* Quick Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-            <Card className="p-4 text-center">
-              <BookOpen className="w-8 h-8 mx-auto mb-2 text-primary" />
-              <div className="text-2xl font-bold">50+</div>
-              <div className="text-sm text-muted-foreground">Articles Published</div>
-            </Card>
-            <Card className="p-4 text-center">
-              <TrendingUp className="w-8 h-8 mx-auto mb-2 text-primary" />
-              <div className="text-2xl font-bold">10K+</div>
-              <div className="text-sm text-muted-foreground">Monthly Readers</div>
-            </Card>
-            <Card className="p-4 text-center">
-              <Users className="w-8 h-8 mx-auto mb-2 text-primary" />
-              <div className="text-2xl font-bold">2K+</div>
-              <div className="text-sm text-muted-foreground">Newsletter Subscribers</div>
-            </Card>
-            <Card className="p-4 text-center">
-              <Rss className="w-8 h-8 mx-auto mb-2 text-primary" />
-              <div className="text-2xl font-bold">Weekly</div>
-              <div className="text-sm text-muted-foreground">New Content</div>
-            </Card>
-          </div>
         </div>
       </section>
 
-      <BlogSection />
+      <BlogSection showHeader={false} />
 
       {/* Sidebar Content */}
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-3 gap-12">
-            {/* Newsletter Signup */}
-            <Card className="p-8 text-center">
-              <Mail className="w-12 h-12 mx-auto mb-4 text-primary" />
-              <h3 className="text-xl font-semibold mb-4">Stay Updated</h3>
-              <p className="text-muted-foreground mb-6 text-sm">
-                Get weekly nutrition tips and the latest articles delivered to your inbox.
-              </p>
-              <div className="space-y-3">
-                <Input placeholder="Enter your email" type="email" />
-                <Button className="w-full">Subscribe to Newsletter</Button>
-              </div>
-            </Card>
-
+          <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
             {/* Popular Tags */}
             <Card className="p-8">
               <h3 className="text-xl font-semibold mb-6">Popular Topics</h3>
-              <div className="flex flex-wrap gap-2">
-                {popularTags.map((tag) => (
-                  <Badge
-                    key={tag}
-                    variant="secondary"
-                    className="cursor-pointer hover:bg-primary hover:text-primary-foreground"
+              <ul className="space-y-3 text-sm">
+                {popularTopics.map((topic) => (
+                  <li
+                    key={topic}
+                    className="border-b border-border/60 pb-2 cursor-pointer hover:text-primary transition-colors"
                   >
-                    {tag}
-                  </Badge>
+                    {topic}
+                  </li>
                 ))}
-              </div>
+              </ul>
             </Card>
 
             {/* Recent Posts */}
@@ -128,7 +86,7 @@ export default function BlogPage() {
                 {recentPosts.map((post, index) => (
                   <div key={index} className="text-sm">
                     <div className="font-medium hover:text-primary cursor-pointer transition-colors">{post}</div>
-                    <div className="text-muted-foreground text-xs mt-1">2 days ago</div>
+                    
                   </div>
                 ))}
               </div>

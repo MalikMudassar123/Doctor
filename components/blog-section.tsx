@@ -1,101 +1,93 @@
 "use client"
 
 import { Card } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Calendar, Clock, ArrowRight, User } from "lucide-react"
-import Image from "next/image"
 
-export function BlogSection() {
+export function BlogSection({ showHeader = true }: { showHeader?: boolean }) {
   const featuredPost = {
     id: "1",
-    title: "The Science Behind Sustainable Weight Loss: Why Quick Fixes Don't Work",
+    title: "Heart-Healthy Eating: What Cardiac Patients Should Actually Change First",
     excerpt:
-      "Discover the evidence-based approach to lasting weight management that focuses on metabolic health, behavioral changes, and sustainable lifestyle modifications.",
-    author: "Dr. Rubia Noor",
-    date: "2024-01-10",
+      "Salt, ghee and portion size do more damage than most people realise. A practical guide drawn from counselling cardiac patients at DHQ Hospital Toba Tek Singh.",
+    author: "Rubia Noor",
+    date: "2026-08-28",
     readTime: "8 min read",
-    category: "Weight Management",
-    image: "/healthy-meal-prep-containers-colorful-vegetables.jpg",
+    category: "Cardiac Nutrition",
     featured: true,
   }
 
   const blogPosts = [
     {
       id: "2",
-      title: "Plant-Based Nutrition: Complete Protein Sources You Need to Know",
+      title: "Affordable Protein: Getting Enough on a Pakistani Grocery Budget",
       excerpt:
-        "A comprehensive guide to getting all essential amino acids from plant-based sources, with practical meal planning tips.",
-      author: "Dr. Rubia Noor",
-      date: "2024-01-08",
+        "Daal, eggs, yoghurt and chana can meet your protein needs without expensive supplements. Here is how much you actually need.",
+      author: "Rubia Noor",
+      date: "2026-08-20",
       readTime: "6 min read",
-      category: "Plant-Based",
-      image: "/plant-based-protein-sources-quinoa-legumes-nuts.jpg",
+      category: "Diet Planning",
     },
     {
       id: "3",
       title: "Managing Diabetes Through Nutrition: A Practical Approach",
       excerpt:
         "Learn how to effectively manage blood sugar levels through strategic meal timing, portion control, and smart food choices.",
-      author: "Dr. Rubia Noor",
-      date: "2024-01-05",
+      author: "Rubia Noor",
+      date: "2026-08-12",
       readTime: "7 min read",
       category: "Medical Nutrition",
-      image: "/diabetes-friendly-meal-blood-sugar-management.jpg",
     },
     {
       id: "4",
-      title: "Sports Nutrition: Fueling Your Performance Naturally",
+      title: "Dietary Assessment: What Happens in Your First Consultation",
       excerpt:
-        "Optimize your athletic performance with evidence-based nutrition strategies that support training, recovery, and competition.",
-      author: "Dr. Rubia Noor",
-      date: "2024-01-03",
+        "A walk through the 24-hour recall, measurements and lab review that come before any diet plan is written.",
+      author: "Rubia Noor",
+      date: "2026-08-05",
       readTime: "5 min read",
-      category: "Sports Nutrition",
-      image: "/athlete-nutrition-pre-workout-meal-preparation.jpg",
+      category: "Clinical Nutrition",
     },
     {
       id: "5",
       title: "Gut Health and Nutrition: The Connection You Can't Ignore",
       excerpt:
         "Explore the vital relationship between digestive health and overall wellness, plus foods that support a healthy microbiome.",
-      author: "Dr. Rubia Noor",
-      date: "2024-01-01",
+      author: "Rubia Noor",
+      date: "2026-07-24",
       readTime: "6 min read",
       category: "Digestive Health",
-      image: "/gut-health-foods-probiotics-fiber-rich-vegetables.jpg",
     },
     {
       id: "6",
-      title: "Nutrition for Busy Professionals: Healthy Eating on the Go",
+      title: "Ramadan Nutrition: Sehri and Iftar Without the Energy Crash",
       excerpt:
-        "Practical strategies for maintaining optimal nutrition despite a hectic schedule, including meal prep tips and portable options.",
-      author: "Dr. Rubia Noor",
-      date: "2023-12-28",
+        "How to structure sehri and iftar so you stay hydrated, keep your energy steady and avoid weight gain over the month.",
+      author: "Rubia Noor",
+      date: "2026-07-15",
       readTime: "4 min read",
-      category: "Lifestyle",
-      image: "/busy-professional-healthy-lunch-office-setting.jpg",
+      category: "Seasonal",
     },
   ]
 
-  const categories = ["All", "Weight Management", "Plant-Based", "Medical Nutrition", "Sports Nutrition", "Lifestyle"]
+  const categories = ["All", "Cardiac Nutrition", "Clinical Nutrition", "Diet Planning", "Medical Nutrition", "Digestive Health", "Seasonal"]
 
   return (
-    <section className="py-20 bg-gradient-to-b from-background to-secondary/20">
+    <section className="py-20 bg-background">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-16">
-          <Badge variant="outline" className="mb-4 text-primary border-primary">
-            Nutrition Blog
-          </Badge>
-          <h2 className="text-4xl lg:text-5xl font-serif font-bold mb-6 text-balance">
-            Latest Insights &<span className="text-primary block">Expert Tips</span>
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty leading-relaxed">
-            Stay informed with evidence-based nutrition advice, practical tips, and the latest research in health and
-            wellness.
-          </p>
-        </div>
+        {showHeader && (
+          <div className="text-center mb-16">
+            <p className="text-sm font-medium uppercase tracking-[0.18em] text-primary mb-4">Nutrition Blog</p>
+            <h2 className="text-4xl lg:text-5xl font-serif font-bold mb-6 text-balance">
+              Latest Insights &<span className="text-primary block">Expert Tips</span>
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty leading-relaxed">
+              Stay informed with evidence-based nutrition advice, practical tips, and the latest research in health and
+              wellness.
+            </p>
+          </div>
+        )}
 
         {/* Category Filter */}
         <div className="flex flex-wrap justify-center gap-2 mb-12">
@@ -113,19 +105,12 @@ export function BlogSection() {
 
         {/* Featured Post */}
         <Card className="mb-16 overflow-hidden hover:shadow-xl transition-shadow">
-          <div className="grid lg:grid-cols-2 gap-0">
-            <div className="relative h-64 lg:h-auto">
-              <Image
-                src={featuredPost.image || "/placeholder.svg"}
-                alt={featuredPost.title}
-                fill
-                className="object-cover"
-              />
-              <Badge className="absolute top-4 left-4 bg-accent text-accent-foreground">Featured</Badge>
-            </div>
-            <div className="p-8 flex flex-col justify-center">
-              <div className="flex items-center space-x-4 mb-4">
-                <Badge variant="secondary">{featuredPost.category}</Badge>
+          <div className="p-8 lg:p-12 border-l-4 border-primary">
+            <div className="max-w-3xl">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mb-4">
+                <span className="text-xs font-medium uppercase tracking-widest text-primary">
+                  Featured · {featuredPost.category}
+                </span>
                 <div className="flex items-center text-sm text-muted-foreground">
                   <Calendar className="w-4 h-4 mr-1" />
                   {new Date(featuredPost.date).toLocaleDateString()}
@@ -155,18 +140,8 @@ export function BlogSection() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {blogPosts.map((post) => (
             <Card key={post.id} className="overflow-hidden hover:shadow-lg transition-shadow group">
-              <div className="relative h-48">
-                <Image
-                  src={post.image || "/placeholder.svg"}
-                  alt={post.title}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <Badge className="absolute top-3 left-3" variant="secondary">
-                  {post.category}
-                </Badge>
-              </div>
               <div className="p-6">
+                <div className="text-xs font-medium uppercase tracking-widest text-primary mb-3">{post.category}</div>
                 <div className="flex items-center space-x-4 mb-3">
                   <div className="flex items-center text-xs text-muted-foreground">
                     <Calendar className="w-3 h-3 mr-1" />
